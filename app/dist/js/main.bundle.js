@@ -46,20 +46,19 @@
 
 	'use strict';
 
-	var Router, config, router, tmpl;
+	var Router, config, postModel, router, tmpl, userListsView;
 
 	config = __webpack_require__(1);
 
+	postModel = __webpack_require__(6);
+
 	tmpl = config.config.tmpl;
+
+	userListsView = __webpack_require__(7);
 
 	Router = Backbone.Router.extend({
 	  initialize: function initialize() {
 	    return this.rootElm = $('#app');
-	  },
-	  _render: function _render(view) {
-	    console.log($(tmpl[view]).html());
-	    this.rootElm.empty();
-	    return this.rootElm.html($(tmpl[view]).html());
 	  },
 	  routes: {
 	    'create': 'create',
@@ -67,14 +66,20 @@
 	    'delete(/:id)': 'delete',
 	    '': 'index'
 	  },
+	  _render: function _render(view) {
+	    this.rootElm.empty();
+	    return this.rootElm.html($(tmpl.index).html());
+	  },
 	  index: function index() {
-	    return this._render('index');
+	    this._render('index');
+	    return userListsView.init();
 	  },
 	  create: function create() {
 	    return this._render('create');
 	  },
 	  detail: function detail(id) {
-	    return this._render('detail');
+	    // @_render 'detail'
+	    return console.log('detail');
 	  },
 	  delete: function _delete(id) {
 	    this._render('del');
@@ -98,25 +103,17 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var create, deleteUser, detail, index, tmplArray;
-
-	index = __webpack_require__(2);
-
-	deleteUser = __webpack_require__(3);
-
-	create = __webpack_require__(4);
-
-	detail = __webpack_require__(5);
+	var tmplArray;
 
 	tmplArray = {};
 
-	tmplArray.index = __webpack_require__(6);
+	tmplArray.index = __webpack_require__(2);
 
-	tmplArray.detail = __webpack_require__(7);
+	tmplArray.detail = __webpack_require__(3);
 
-	tmplArray.create = __webpack_require__(8);
+	tmplArray.create = __webpack_require__(4);
 
-	tmplArray.delete = __webpack_require__(9);
+	tmplArray.delete = __webpack_require__(5);
 
 	// テンプレートの不要な文字を削除する。
 	_.each(tmplArray, function (tmpl, key) {
@@ -126,10 +123,6 @@
 	});
 
 	var config = exports.config = {
-	  index: index,
-	  deleteUser: deleteUser,
-	  create: create,
-	  detail: detail,
 	  tmpl: {
 	    index: tmplArray.index,
 	    detail: tmplArray.detail,
@@ -142,91 +135,116 @@
 /* 2 */
 /***/ (function(module, exports) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var index = exports.index = function index() {
-	  _classCallCheck(this, index);
-	};
+	module.exports = "module.exports = \"<script type=text/template id=index> <section>\\r\\n\\t\\t<h2>list</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<ul id=\\\"userList\\\">\\r\\n\\r\\n\\t\\t</ul>\\r\\n\\t\\t<a href=\\\"#create\\\">create</a>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var deleteUser = exports.deleteUser = function deleteUser() {
-	  _classCallCheck(this, deleteUser);
-	};
+	module.exports = "module.exports = \"<script type=text/template id=detail> <section>\\r\\n\\t\\t<h2>detail</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<ul>\\r\\n\\t\\t\\t<li>\\r\\n\\t\\t\\t\\t<a href=\\\"../app/#create\\\">create</a>\\r\\n\\t\\t\\t</li>\\r\\n\\t\\t\\t<li>\\r\\n\\t\\t\\t\\t<a href=\\\"../app/#\\\">back</a>\\r\\n\\t\\t\\t</li>\\r\\n\\t\\t\\t<li>\\r\\n\\t\\t\\t\\t<a href=\\\"../app/#delete/3\\\">delete</a>\\r\\n\\t\\t\\t</li>\\r\\n\\t\\t</ul>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var create = exports.create = function create() {
-	  _classCallCheck(this, create);
-
-	  console.log(5353);
-	};
+	module.exports = "module.exports = \"<script type=text/template id=create> <section>\\r\\n\\t\\t<h2>create</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<a href=\\\"../app/#\\\">back</a>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var detail = exports.detail = function detail() {
-	  _classCallCheck(this, detail);
-	};
+	module.exports = "module.exports = \"<script type=text/template id=delete> <section>\\r\\n\\t\\t<h2>delete</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<a href=\\\"../app/#\\\">back</a>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
-	module.exports = "module.exports = \"<script type=text/template id=index> <section>\\r\\n\\t\\t<h2>list</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<ul>\\r\\n\\t\\t\\t<li>\\r\\n\\t\\t\\t\\t<a href=\\\"#detail/3\\\">title</a>\\r\\n\\t\\t\\t</li>\\r\\n\\t\\t\\t<li>\\r\\n\\t\\t\\t\\t<a href=\\\"#detail/3\\\">title</a>\\r\\n\\t\\t\\t</li>\\r\\n\\t\\t\\t<li>\\r\\n\\t\\t\\t\\t<a href=\\\"#detail/3\\\">title</a>\\r\\n\\t\\t\\t</li>\\r\\n\\t\\t</ul>\\r\\n\\t\\t<a href=\\\"#create\\\">crate</a>\\r\\n\\t</section> </script>\";";
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var Post = exports.Post = Backbone.Model.extend({
+	  defaults: {
+	    id: null,
+	    title: ''
+	  }
+	});
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = "module.exports = \"<script type=text/template id=detail> <section>\\r\\n\\t\\t<h2>detail</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<ul>\\r\\n\\t\\t\\t<li>\\r\\n\\t\\t\\t\\t<a href=\\\"../app/#create\\\">create</a>\\r\\n\\t\\t\\t</li>\\r\\n\\t\\t\\t<li>\\r\\n\\t\\t\\t\\t<a href=\\\"../app/#\\\">back</a>\\r\\n\\t\\t\\t</li>\\r\\n\\t\\t\\t<li>\\r\\n\\t\\t\\t\\t<a href=\\\"../app/#delete/3\\\">delete</a>\\r\\n\\t\\t\\t</li>\\r\\n\\t\\t</ul>\\r\\n\\t</section> </script>\";";
+	'use strict';
+
+	var UserListsView, listView, postModel, userCollection;
+
+	postModel = __webpack_require__(6);
+
+	listView = __webpack_require__(8);
+
+	userCollection = __webpack_require__(9);
+
+	UserListsView = Backbone.View.extend({
+	  initialize: function initialize() {
+	    return userCollection.fetch();
+	  },
+	  init: function init() {
+	    this.$el = $('#userList');
+	    return this.render();
+	  },
+	  render: function render() {
+	    var _this = this;
+
+	    _.each(userCollection.models, function (user) {
+	      var list;
+	      list = new listView({
+	        model: user.attributes
+	      });
+	      return _this.$el.append(list.render().el);
+	    });
+	    return this;
+	  }
+	});
+
+	module.exports = new UserListsView();
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = "module.exports = \"<script type=text/template id=create> <section>\\r\\n\\t\\t<h2>create</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<a href=\\\"../app/#\\\">back</a>\\r\\n\\t</section> </script>\";";
+	'use strict';
+
+	var postModel;
+
+	postModel = __webpack_require__(6);
+
+	module.exports = Backbone.View.extend({
+	  tagName: 'li',
+	  template: _.template('<a href="#detail/<%= id %>"><%= title %></a>'),
+	  render: function render() {
+	    this.$el.append(this.template(this.model));
+	    return this;
+	  }
+	});
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = "module.exports = \"<script type=text/template id=delete> <section>\\r\\n\\t\\t<h2>delete</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<a href=\\\"../app/#\\\">back</a>\\r\\n\\t</section> </script>\";";
+	'use strict';
+
+	var UserCollection, postModel;
+
+	postModel = __webpack_require__(6);
+
+	// listView = require './list'
+	UserCollection = Backbone.Collection.extend({
+	  model: postModel.Post,
+	  url: 'http://localhost:3010/users'
+	});
+
+	module.exports = new UserCollection();
 
 /***/ })
 /******/ ]);

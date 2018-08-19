@@ -1,29 +1,32 @@
 config = require './config'
+postModel = require './index/models/post'
 tmpl = config.config.tmpl
+userListsView = require './index/views/userLists'
 
 Router = Backbone.Router.extend({
     initialize: ->
         @rootElm = $('#app')
-
-    _render: (view) ->
-        console.log $(tmpl[view]).html()
-        @rootElm.empty()
-        @rootElm.html $(tmpl[view]).html()
-
+        
     routes :
         'create' : 'create',
         'detail(/:id)' : 'detail',
         'delete(/:id)' : 'delete',
         '' : 'index',
 
+    _render: (view) ->
+        @rootElm.empty()
+        @rootElm.html $(tmpl.index).html()
+
     index : ->
         @_render 'index'
+        userListsView.init()
 
     create : ->
         @_render 'create'
 
     detail : (id) ->
-        @_render 'detail'
+        # @_render 'detail'
+        console.log 'detail'
 
     delete : (id) ->
         @_render 'del'

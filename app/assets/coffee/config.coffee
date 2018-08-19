@@ -1,7 +1,3 @@
-index = require './index/app'
-deleteUser = require  './delete/app'
-create = require './create/app'
-detail = require './detail/app'
 tmplArray = {}
 tmplArray.index = require 'html!template/index.html'
 tmplArray.detail = require 'html!template/detail.html'
@@ -20,13 +16,8 @@ _.each tmplArray, (tmpl, key) ->
     tmplArray[key] = tmpl
 
 export config = 
-    index: index,
-    deleteUser: deleteUser,
-    create: create,
-    detail:detail,
-    tmpl: {
+    tmpl:
         index: tmplArray.index,
         detail: tmplArray.detail,
         create: tmplArray.create,
         del: tmplArray.delete
-    }
