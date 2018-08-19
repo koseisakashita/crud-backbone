@@ -1,5 +1,6 @@
 module.exports = Backbone.Model.extend({
 	defaults:
 		id: null,
-		title: ''
+		title: '',
+		body: ''
 })

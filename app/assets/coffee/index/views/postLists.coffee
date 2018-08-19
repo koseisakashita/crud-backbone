@@ -1,16 +1,18 @@
 listView = require './list'
-userCollection = require '../collections/userCollection'
+postCollection = require '../collections/postCollection'
 
 UserListsView = Backbone.View.extend({
+	collection: postCollection
 	initialize: ->
-		userCollection.fetch()
+		postCollection.fetch()
 
 	init: ->
 		@$el = $('#userList')
 		@render()
 
 	render: ->
-		_.each userCollection.models, (user) =>
+		console.log postCollection
+		_.each postCollection.models, (user) =>
 			list = new listView(model:user.attributes)
 			@.$el.append list.render().el
 		return @

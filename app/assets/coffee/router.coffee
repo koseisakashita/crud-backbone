@@ -1,5 +1,5 @@
 config = require './config'
-userListsView = require './index/views/userLists'
+postListsView = require './index/views/postLists'
 
 Router = Backbone.Router.extend({
     initialize: ->
@@ -13,17 +13,17 @@ Router = Backbone.Router.extend({
 
     _render: (view) ->
         @rootElm.empty()
-        @rootElm.html $(config.tmpl.index).html()
+        @rootElm.html $(config.tmpl[view]).html()
 
     index : ->
         @_render 'index'
-        userListsView.init()
+        postListsView.init()
 
     create : ->
         @_render 'create'
 
     detail : (id) ->
-        # @_render 'detail'
+        @_render 'detail'
         console.log 'detail'
 
     delete : (id) ->

@@ -46,11 +46,11 @@
 
 	'use strict';
 
-	var Router, config, router, userListsView;
+	var Router, config, postListsView, router;
 
 	config = __webpack_require__(1);
 
-	userListsView = __webpack_require__(6);
+	postListsView = __webpack_require__(6);
 
 	Router = Backbone.Router.extend({
 	  initialize: function initialize() {
@@ -64,17 +64,17 @@
 	  },
 	  _render: function _render(view) {
 	    this.rootElm.empty();
-	    return this.rootElm.html($(config.tmpl.index).html());
+	    return this.rootElm.html($(config.tmpl[view]).html());
 	  },
 	  index: function index() {
 	    this._render('index');
-	    return userListsView.init();
+	    return postListsView.init();
 	  },
 	  create: function create() {
 	    return this._render('create');
 	  },
 	  detail: function detail(id) {
-	    // @_render 'detail'
+	    this._render('detail');
 	    return console.log('detail');
 	  },
 	  delete: function _delete(id) {
@@ -127,7 +127,7 @@
 /* 2 */
 /***/ (function(module, exports) {
 
-	module.exports = "module.exports = \"<script type=text/template id=index> <section>\\r\\n\\t\\t<h2>list</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<ul id=\\\"userList\\\">\\r\\n\\r\\n\\t\\t</ul>\\r\\n\\t\\t<a href=\\\"#create\\\">create</a>\\r\\n\\t</section> </script>\";";
+	module.exports = "module.exports = \"<script type=text/template id=index> <section>\\r\\n\\t\\t<h2>list</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<ul id=\\\"userList\\\"></ul>\\r\\n\\t\\t<a href=\\\"#create\\\">create</a>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 3 */
@@ -153,15 +153,16 @@
 
 	'use strict';
 
-	var UserListsView, listView, userCollection;
+	var UserListsView, listView, postCollection;
 
 	listView = __webpack_require__(7);
 
-	userCollection = __webpack_require__(8);
+	postCollection = __webpack_require__(8);
 
 	UserListsView = Backbone.View.extend({
+	  collection: postCollection,
 	  initialize: function initialize() {
-	    return userCollection.fetch();
+	    return postCollection.fetch();
 	  },
 	  init: function init() {
 	    this.$el = $('#userList');
@@ -170,7 +171,8 @@
 	  render: function render() {
 	    var _this = this;
 
-	    _.each(userCollection.models, function (user) {
+	    console.log(postCollection);
+	    _.each(postCollection.models, function (user) {
 	      var list;
 	      list = new listView({
 	        model: user.attributes
@@ -191,7 +193,7 @@
 
 	module.exports = Backbone.View.extend({
 	  tagName: 'li',
-	  template: _.template('<a href="#detail/<%= id %>"><%= title %></a>'),
+	  template: _.template('<a href="#detail/<%= id %>"><%= title %></a><span><%= body %></span>'),
 	  render: function render() {
 	    this.$el.append(this.template(this.model));
 	    return this;
@@ -224,7 +226,8 @@
 	module.exports = Backbone.Model.extend({
 	  defaults: {
 	    id: null,
-	    title: ''
+	    title: '',
+	    body: ''
 	  }
 	});
 
