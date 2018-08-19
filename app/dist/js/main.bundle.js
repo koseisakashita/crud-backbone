@@ -46,15 +46,11 @@
 
 	'use strict';
 
-	var Router, config, postModel, router, tmpl, userListsView;
+	var Router, config, router, userListsView;
 
 	config = __webpack_require__(1);
 
-	postModel = __webpack_require__(6);
-
-	tmpl = config.config.tmpl;
-
-	userListsView = __webpack_require__(7);
+	userListsView = __webpack_require__(6);
 
 	Router = Backbone.Router.extend({
 	  initialize: function initialize() {
@@ -68,7 +64,7 @@
 	  },
 	  _render: function _render(view) {
 	    this.rootElm.empty();
-	    return this.rootElm.html($(tmpl.index).html());
+	    return this.rootElm.html($(config.tmpl.index).html());
 	  },
 	  index: function index() {
 	    this._render('index');
@@ -82,8 +78,7 @@
 	    return console.log('detail');
 	  },
 	  delete: function _delete(id) {
-	    this._render('del');
-	    return console.log('delete');
+	    return this._render('del');
 	  }
 	});
 
@@ -100,9 +95,6 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	var tmplArray;
 
 	tmplArray = {};
@@ -122,7 +114,7 @@
 	  return tmplArray[key] = tmpl;
 	});
 
-	var config = exports.config = {
+	module.exports = {
 	  tmpl: {
 	    index: tmplArray.index,
 	    detail: tmplArray.detail,
@@ -157,33 +149,15 @@
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var Post = exports.Post = Backbone.Model.extend({
-	  defaults: {
-	    id: null,
-	    title: ''
-	  }
-	});
-
-/***/ }),
-/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var UserListsView, listView, postModel, userCollection;
+	var UserListsView, listView, userCollection;
 
-	postModel = __webpack_require__(6);
+	listView = __webpack_require__(7);
 
-	listView = __webpack_require__(8);
-
-	userCollection = __webpack_require__(9);
+	userCollection = __webpack_require__(8);
 
 	UserListsView = Backbone.View.extend({
 	  initialize: function initialize() {
@@ -210,14 +184,10 @@
 	module.exports = new UserListsView();
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 7 */
+/***/ (function(module, exports) {
 
 	'use strict';
-
-	var postModel;
-
-	postModel = __webpack_require__(6);
 
 	module.exports = Backbone.View.extend({
 	  tagName: 'li',
@@ -229,22 +199,34 @@
 	});
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var UserCollection, postModel;
 
-	postModel = __webpack_require__(6);
+	postModel = __webpack_require__(9);
 
-	// listView = require './list'
 	UserCollection = Backbone.Collection.extend({
-	  model: postModel.Post,
+	  model: postModel,
 	  url: 'http://localhost:3010/users'
 	});
 
 	module.exports = new UserCollection();
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	module.exports = Backbone.Model.extend({
+	  defaults: {
+	    id: null,
+	    title: ''
+	  }
+	});
 
 /***/ })
 /******/ ]);

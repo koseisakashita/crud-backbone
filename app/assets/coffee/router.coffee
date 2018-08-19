@@ -1,6 +1,4 @@
 config = require './config'
-postModel = require './index/models/post'
-tmpl = config.config.tmpl
 userListsView = require './index/views/userLists'
 
 Router = Backbone.Router.extend({
@@ -15,7 +13,7 @@ Router = Backbone.Router.extend({
 
     _render: (view) ->
         @rootElm.empty()
-        @rootElm.html $(tmpl.index).html()
+        @rootElm.html $(config.tmpl.index).html()
 
     index : ->
         @_render 'index'
@@ -30,7 +28,6 @@ Router = Backbone.Router.extend({
 
     delete : (id) ->
         @_render 'del'
-        console.log('delete')
 })
 
 router = new Router()

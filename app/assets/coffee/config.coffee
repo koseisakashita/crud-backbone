@@ -15,7 +15,7 @@ _.each tmplArray, (tmpl, key) ->
         .replace /> </g, '><'
     tmplArray[key] = tmpl
 
-export config = 
+module.exports = 
     tmpl:
         index: tmplArray.index,
         detail: tmplArray.detail,

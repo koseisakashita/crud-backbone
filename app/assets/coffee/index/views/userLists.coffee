@@ -1,4 +1,3 @@
-postModel = require '../models/post'
 listView = require './list'
 userCollection = require '../collections/userCollection'
 

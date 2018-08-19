@@ -1,4 +1,4 @@
-export Post = Backbone.Model.extend({
+module.exports = Backbone.Model.extend({
 	defaults:
 		id: null,
 		title: ''

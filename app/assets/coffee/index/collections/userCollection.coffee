@@ -1,8 +1,7 @@
 postModel = require '../models/post'
-# listView = require './list'
 
 UserCollection = Backbone.Collection.extend({
-	model:postModel.Post
+	model:postModel
 	url: 'http://localhost:3010/users'
 })
 module.exports = new UserCollection()
