@@ -1,18 +1,53 @@
 .index-container {
   margin-bottom: 60px; }
+  .index-container .data-none {
+    line-height: 3; }
   .index-container > h1 {
     font-size: 20px;
     font-weight: bold; }
   .index-container > .create-btn {
     margin-top: 20px; }
 
+.detail-container {
+  margin-bottom: 60px; }
+  .detail-container > .detail-header {
+    display: flex;
+    align-items: center; }
+    .detail-container > .detail-header > h1 {
+      font-size: 20px;
+      font-weight: bold; }
+    .detail-container > .detail-header > div {
+      margin-left: auto; }
+      .detail-container > .detail-header > div > a > i {
+        color: #777; }
+  .detail-container > .update-btn {
+    margin-top: 20px; }
+
+.create-container {
+  margin-bottom: 60px; }
+  .create-container > h1 {
+    font-size: 20px;
+    font-weight: bold; }
+  .create-container > .create-btn {
+    margin-top: 20px; }
+
+.delete-container {
+  margin-bottom: 60px; }
+  .delete-container > h1 {
+    font-size: 20px;
+    font-weight: bold; }
+  .delete-container > .create-btn {
+    margin-top: 30px; }
+    .delete-container > .create-btn > a:first-child {
+      margin-right: 20px; }
+
 header > nav > .nav-wrapper {
-  max-width: 940px;
+  max-width: 70%;
   margin: 0 auto; }
   header > nav > .nav-wrapper > a {
     font-size: 24px; }
 
 main {
-  max-width: 940px;
-  min-height: 470px;
+  max-width: 70%;
+  min-height: 480px;
   margin: 0 auto; }

@@ -1,21 +1,23 @@
 <script type="text/template" id="detail">
-	<section>
-		<h2>detail</h2>
-		<div class="head">
-			<div class="h-id">id</div>
-			<div class="h-title">title</div>
-			<div class="h-body">body</div>
+	<section class="detail-container">
+		<div class="detail-header">
+			<h1>Post Detail</h1>
+			<div id="delete" class="center-align btn-floating waves-effect waves-light grey lighten-2">
+				<a><i class="material-icons">close</i></a>
+			</div>
 		</div>
-		<ul>
-			<li>
-				<a href="../app/#create">create</a>
-			</li>
-			<li>
-				<a href="../app/#">back</a>
-			</li>
-			<li>
-				<a href="../app/#delete/3">delete</a>
-			</li>
-		</ul>
+		<div class="row">
+			<div class="input-field col s6">
+				<input id="title" type="text" class="validate">
+				<label class="active" for="title">title</label>
+			</div>
+			<div class="input-field col s6">
+				<input id="body" type="text" class="validate">
+				<label class="active" for="body">body</label>		
+			</div>
+		</div>
+		<div class="update-btn">
+			<a class="waves-effect waves-light btn red lighten-2" id="update" href="javascript:void(0)">update</a>
+		</div>
 	</section>
 </script>

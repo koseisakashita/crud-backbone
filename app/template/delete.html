@@ -1,11 +1,19 @@
 <script type="text/template" id="delete">
-	<section>
-		<h2>delete</h2>
-		<div class="head">
-			<div class="h-id">id</div>
-			<div class="h-title">title</div>
-			<div class="h-body">body</div>
+	<section class="delete-container">
+		<h1>Post Delete</h1>
+		<table class="highlight">
+			<thead>
+			  <tr>
+			      <th>id</th>
+			      <th>title</th>
+			      <th>body</th>
+			  </tr>
+			</thead>
+			<tbody id="userList"></tbody>
+		</table>
+		<div class="delete-btn">
+			<a class="waves-effect waves-light btn grey" href="../app/#">back</a>
+			<a class="waves-effect waves-light btn red lighten-2" href="#create">delete</a>
 		</div>
-		<a href="../app/#">back</a>
 	</section>
 </script>

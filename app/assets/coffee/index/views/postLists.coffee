@@ -12,6 +12,11 @@ UserListsView = Backbone.View.extend({
 		)
 
 	render: ->
+		if _.isEmpty postCollection.models
+			@$el.addClass 'data-none'
+			.text 'post nothing...'
+			return
+
 		_.each postCollection.models, (user) =>
 			list = new listView(model:user.attributes)
 			@.$el.append list.render().el

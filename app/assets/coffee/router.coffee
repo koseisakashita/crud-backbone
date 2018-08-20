@@ -11,23 +11,23 @@ Router = Backbone.Router.extend({
         'delete(/:id)' : 'delete',
         '' : 'index',
 
-    _render: (view) ->
+    _tmplRender: (view) ->
         @rootElm.empty()
         @rootElm.html $(config.tmpl[view]).html()
 
     index : ->
-        @_render 'index'
+        @_tmplRender 'index'
         postListsView.init()
 
     create : ->
-        @_render 'create'
+        @_tmplRender 'create'
 
     detail : (id) ->
-        @_render 'detail'
+        @_tmplRender 'detail'
         console.log 'detail'
 
     delete : (id) ->
-        @_render 'del'
+        @_tmplRender 'del'
 })
 
 router = new Router()

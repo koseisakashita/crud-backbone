@@ -3,7 +3,7 @@
 @import 'create';
 @import 'delete';
 
-$content-width: 940px;
+$content-width: 70%;
 
 header{
 	>nav{
@@ -18,7 +18,7 @@ header{
 }
 main{
 	max-width: $content-width;
-	min-height: 470px;
+	min-height: 480px;
 	margin: 0 auto;
 }
 footer{

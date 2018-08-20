@@ -62,23 +62,23 @@
 	    'delete(/:id)': 'delete',
 	    '': 'index'
 	  },
-	  _render: function _render(view) {
+	  _tmplRender: function _tmplRender(view) {
 	    this.rootElm.empty();
 	    return this.rootElm.html($(config.tmpl[view]).html());
 	  },
 	  index: function index() {
-	    this._render('index');
+	    this._tmplRender('index');
 	    return postListsView.init();
 	  },
 	  create: function create() {
-	    return this._render('create');
+	    return this._tmplRender('create');
 	  },
 	  detail: function detail(id) {
-	    this._render('detail');
+	    this._tmplRender('detail');
 	    return console.log('detail');
 	  },
 	  delete: function _delete(id) {
-	    return this._render('del');
+	    return this._tmplRender('del');
 	  }
 	});
 
@@ -95,31 +95,31 @@
 
 	'use strict';
 
-	var tmplArray;
+	var tmplLists;
 
-	tmplArray = {};
+	tmplLists = {};
 
-	tmplArray.index = __webpack_require__(2);
+	tmplLists.index = __webpack_require__(2);
 
-	tmplArray.detail = __webpack_require__(3);
+	tmplLists.detail = __webpack_require__(3);
 
-	tmplArray.create = __webpack_require__(4);
+	tmplLists.create = __webpack_require__(4);
 
-	tmplArray.delete = __webpack_require__(5);
+	tmplLists.delete = __webpack_require__(5);
 
 	// テンプレートの不要な文字を削除する。
-	_.each(tmplArray, function (tmpl, key) {
+	_.each(tmplLists, function (tmpl, key) {
 	  tmpl = tmpl.slice(18, tmpl.length - 2);
 	  tmpl = tmpl.replace(/\n/g, '').replace(/\\r/g, '').replace(/\\t/g, '').replace(/\\n/g, '').replace(/\\/g, '').replace(/> </g, '><');
-	  return tmplArray[key] = tmpl;
+	  return tmplLists[key] = tmpl;
 	});
 
 	module.exports = {
 	  tmpl: {
-	    index: tmplArray.index,
-	    detail: tmplArray.detail,
-	    create: tmplArray.create,
-	    del: tmplArray.delete
+	    index: tmplLists.index,
+	    detail: tmplLists.detail,
+	    create: tmplLists.create,
+	    del: tmplLists.delete
 	  }
 	};
 
@@ -127,25 +127,25 @@
 /* 2 */
 /***/ (function(module, exports) {
 
-	module.exports = "module.exports = \"<script type=text/template id=index> <section class=\\\"index-container\\\">\\r\\n\\t\\t<h1>Post Lists</h1>\\r\\n\\t\\t<table class=\\\"highlight\\\">\\r\\n\\t\\t\\t<thead>\\r\\n\\t\\t\\t  <tr>\\r\\n\\t\\t\\t      <th>title</th>\\r\\n\\t\\t\\t      <th>body</th>\\r\\n\\t\\t\\t  </tr>\\r\\n\\t\\t\\t</thead>\\r\\n\\t\\t\\t<tbody id=\\\"userList\\\"></tbody>\\r\\n\\t\\t</table>\\r\\n\\t\\t<div class=\\\"create-btn\\\">\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"#create\\\">create +</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
+	module.exports = "module.exports = \"<script type=text/template id=index> <section class=\\\"index-container\\\">\\r\\n\\t\\t<h1>Post Lists</h1>\\r\\n\\t\\t<table class=\\\"highlight\\\">\\r\\n\\t\\t\\t<thead>\\r\\n\\t\\t\\t  <tr>\\r\\n\\t\\t\\t      <th>title</th>\\r\\n\\t\\t\\t      <th>body</th>\\r\\n\\t\\t\\t  </tr>\\r\\n\\t\\t\\t</thead>\\r\\n\\t\\t\\t<tbody id=\\\"userList\\\"></tbody>\\r\\n\\t\\t</table>\\r\\n\\t\\t<div class=\\\"create-btn\\\">\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"#create\\\">create</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-	module.exports = "module.exports = \"<script type=text/template id=detail> <section>\\r\\n\\t\\t<h2>detail</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<ul>\\r\\n\\t\\t\\t<li>\\r\\n\\t\\t\\t\\t<a href=\\\"../app/#create\\\">create</a>\\r\\n\\t\\t\\t</li>\\r\\n\\t\\t\\t<li>\\r\\n\\t\\t\\t\\t<a href=\\\"../app/#\\\">back</a>\\r\\n\\t\\t\\t</li>\\r\\n\\t\\t\\t<li>\\r\\n\\t\\t\\t\\t<a href=\\\"../app/#delete/3\\\">delete</a>\\r\\n\\t\\t\\t</li>\\r\\n\\t\\t</ul>\\r\\n\\t</section> </script>\";";
+	module.exports = "module.exports = \"<script type=text/template id=detail> <section class=\\\"detail-container\\\">\\r\\n\\t\\t<div class=\\\"detail-header\\\">\\r\\n\\t\\t\\t<h1>Post Detail</h1>\\r\\n\\t\\t\\t<div id=\\\"delete\\\" class=\\\"center-align btn-floating waves-effect waves-light grey lighten-2\\\">\\r\\n\\t\\t\\t\\t<a><i class=\\\"material-icons\\\">close</i></a>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"row\\\">\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"title\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"title\\\">title</label>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"body\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"body\\\">body</label>\\t\\t\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"update-btn\\\">\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" id=\\\"update\\\" href=\\\"javascript:void(0)\\\">update</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-	module.exports = "module.exports = \"<script type=text/template id=create> <section>\\r\\n\\t\\t<h2>create</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<a href=\\\"../app/#\\\">back</a>\\r\\n\\t</section> </script>\";";
+	module.exports = "module.exports = \"<script type=text/template id=create> <section class=\\\"create-container\\\">\\r\\n\\t\\t<h1>Post Create</h1>\\r\\n\\t\\t<div class=\\\"row\\\">\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"title\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"title\\\">title</label>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"body\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"body\\\">body</label>\\t\\t\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"create-btn\\\">\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"../app/#\\\">create</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-	module.exports = "module.exports = \"<script type=text/template id=delete> <section>\\r\\n\\t\\t<h2>delete</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<a href=\\\"../app/#\\\">back</a>\\r\\n\\t</section> </script>\";";
+	module.exports = "module.exports = \"<script type=text/template id=delete> <section class=\\\"delete-container\\\">\\r\\n\\t\\t<h1>Post Delete</h1>\\r\\n\\t\\t<table class=\\\"highlight\\\">\\r\\n\\t\\t\\t<thead>\\r\\n\\t\\t\\t  <tr>\\r\\n\\t\\t\\t      <th>id</th>\\r\\n\\t\\t\\t      <th>title</th>\\r\\n\\t\\t\\t      <th>body</th>\\r\\n\\t\\t\\t  </tr>\\r\\n\\t\\t\\t</thead>\\r\\n\\t\\t\\t<tbody id=\\\"userList\\\"></tbody>\\r\\n\\t\\t</table>\\r\\n\\t\\t<div class=\\\"create-btn\\\">\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn grey\\\" href=\\\"../app/#\\\">back</a>\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"#create\\\">delete</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 6 */
@@ -174,6 +174,10 @@
 	  render: function render() {
 	    var _this2 = this;
 
+	    if (_.isEmpty(postCollection.models)) {
+	      this.$el.addClass('data-none').text('post nothing...');
+	      return;
+	    }
 	    _.each(postCollection.models, function (user) {
 	      var list;
 	      list = new listView({

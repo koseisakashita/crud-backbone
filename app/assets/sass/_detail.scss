@@ -1,0 +1,20 @@
+.detail-container{
+	margin-bottom: 60px;
+	>.detail-header {
+		display: flex;
+	    align-items: center;
+		>h1{
+			font-size: 20px;
+			font-weight: bold;
+		}
+		>div{
+			margin-left: auto;
+			>a >i{
+				color: #777;
+			}
+		}
+	}
+	>.update-btn{
+		margin-top: 20px;
+	}
+}
