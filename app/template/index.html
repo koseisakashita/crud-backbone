@@ -1,12 +1,17 @@
 <script type="text/template" id="index">
-	<section>
-		<h2>list</h2>
-		<div class="head">
-			<div class="h-id">id</div>
-			<div class="h-title">title</div>
-			<div class="h-body">body</div>
+	<section class="index-container">
+		<h1>Post Lists</h1>
+		<table class="highlight">
+			<thead>
+			  <tr>
+			      <th>title</th>
+			      <th>body</th>
+			  </tr>
+			</thead>
+			<tbody id="userList"></tbody>
+		</table>
+		<div class="create-btn">
+			<a class="waves-effect waves-light btn red lighten-2" href="#create">create</a>
 		</div>
-		<ul id="userList"></ul>
-		<a href="#create">create</a>
 	</section>
 </script>

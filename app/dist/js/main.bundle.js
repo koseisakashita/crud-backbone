@@ -127,7 +127,7 @@
 /* 2 */
 /***/ (function(module, exports) {
 
-	module.exports = "module.exports = \"<script type=text/template id=index> <section>\\r\\n\\t\\t<h2>list</h2>\\r\\n\\t\\t<div class=\\\"head\\\">\\r\\n\\t\\t\\t<div class=\\\"h-id\\\">id</div>\\r\\n\\t\\t\\t<div class=\\\"h-title\\\">title</div>\\r\\n\\t\\t\\t<div class=\\\"h-body\\\">body</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<ul id=\\\"userList\\\"></ul>\\r\\n\\t\\t<a href=\\\"#create\\\">create</a>\\r\\n\\t</section> </script>\";";
+	module.exports = "module.exports = \"<script type=text/template id=index> <section class=\\\"index-container\\\">\\r\\n\\t\\t<h1>Post Lists</h1>\\r\\n\\t\\t<table class=\\\"highlight\\\">\\r\\n\\t\\t\\t<thead>\\r\\n\\t\\t\\t  <tr>\\r\\n\\t\\t\\t      <th>title</th>\\r\\n\\t\\t\\t      <th>body</th>\\r\\n\\t\\t\\t  </tr>\\r\\n\\t\\t\\t</thead>\\r\\n\\t\\t\\t<tbody id=\\\"userList\\\"></tbody>\\r\\n\\t\\t</table>\\r\\n\\t\\t<div class=\\\"create-btn\\\">\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"#create\\\">create +</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 3 */
@@ -161,23 +161,25 @@
 
 	UserListsView = Backbone.View.extend({
 	  collection: postCollection,
-	  initialize: function initialize() {
-	    return postCollection.fetch();
-	  },
 	  init: function init() {
-	    this.$el = $('#userList');
-	    return this.render();
-	  },
-	  render: function render() {
 	    var _this = this;
 
-	    console.log(postCollection);
+	    return postCollection.fetch({
+	      success: function success(collection, res, opt) {
+	        _this.$el = $('#userList');
+	        return _this.render();
+	      }
+	    });
+	  },
+	  render: function render() {
+	    var _this2 = this;
+
 	    _.each(postCollection.models, function (user) {
 	      var list;
 	      list = new listView({
 	        model: user.attributes
 	      });
-	      return _this.$el.append(list.render().el);
+	      return _this2.$el.append(list.render().el);
 	    });
 	    return this;
 	  }
@@ -192,8 +194,8 @@
 	'use strict';
 
 	module.exports = Backbone.View.extend({
-	  tagName: 'li',
-	  template: _.template('<a href="#detail/<%= id %>"><%= title %></a><span><%= body %></span>'),
+	  tagName: 'tr',
+	  template: _.template('<td><a href="#detail/<%= id %>"><%= title %></a></td><td><%= body %></td>'),
 	  render: function render() {
 	    this.$el.append(this.template(this.model));
 	    return this;
