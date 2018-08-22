@@ -46,11 +46,13 @@
 
 	'use strict';
 
-	var Router, config, postListsView, router;
+	var Router, config, postDetail, postListsView, router;
 
 	config = __webpack_require__(1);
 
 	postListsView = __webpack_require__(6);
+
+	postDetail = __webpack_require__(10);
 
 	Router = Backbone.Router.extend({
 	  initialize: function initialize() {
@@ -75,7 +77,7 @@
 	  },
 	  detail: function detail(id) {
 	    this._tmplRender('detail');
-	    return console.log('detail');
+	    return postDetail.init(id);
 	  },
 	  delete: function _delete(id) {
 	    return this._tmplRender('del');
@@ -133,7 +135,7 @@
 /* 3 */
 /***/ (function(module, exports) {
 
-	module.exports = "module.exports = \"<script type=text/template id=detail> <section class=\\\"detail-container\\\">\\r\\n\\t\\t<div class=\\\"detail-header\\\">\\r\\n\\t\\t\\t<h1>Post Detail</h1>\\r\\n\\t\\t\\t<div id=\\\"delete\\\" class=\\\"center-align btn-floating waves-effect waves-light grey lighten-2\\\">\\r\\n\\t\\t\\t\\t<a><i class=\\\"material-icons\\\">close</i></a>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"row\\\">\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"title\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"title\\\">title</label>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"body\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"body\\\">body</label>\\t\\t\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"update-btn\\\">\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" id=\\\"update\\\" href=\\\"javascript:void(0)\\\">update</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
+	module.exports = "module.exports = \"<script type=text/template> <section class=\\\"detail-container\\\" id=\\\"detail\\\">\\r\\n\\t\\t<div class=\\\"detail-header\\\">\\r\\n\\t\\t\\t<h1>Post Detail</h1>\\r\\n\\t\\t\\t<div id=\\\"delete\\\" class=\\\"center-align btn-floating waves-effect waves-light grey lighten-2\\\">\\r\\n\\t\\t\\t\\t<a><i class=\\\"material-icons\\\">close</i></a>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"row\\\">\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"title\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"title\\\">title</label>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"body\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"body\\\">body</label>\\t\\t\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"update-btn\\\" id=\\\"update\\\" >\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"javascript:void(0)\\\">update</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 4 */
@@ -145,7 +147,7 @@
 /* 5 */
 /***/ (function(module, exports) {
 
-	module.exports = "module.exports = \"<script type=text/template id=delete> <section class=\\\"delete-container\\\">\\r\\n\\t\\t<h1>Post Delete</h1>\\r\\n\\t\\t<table class=\\\"highlight\\\">\\r\\n\\t\\t\\t<thead>\\r\\n\\t\\t\\t  <tr>\\r\\n\\t\\t\\t      <th>id</th>\\r\\n\\t\\t\\t      <th>title</th>\\r\\n\\t\\t\\t      <th>body</th>\\r\\n\\t\\t\\t  </tr>\\r\\n\\t\\t\\t</thead>\\r\\n\\t\\t\\t<tbody id=\\\"userList\\\"></tbody>\\r\\n\\t\\t</table>\\r\\n\\t\\t<div class=\\\"create-btn\\\">\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn grey\\\" href=\\\"../app/#\\\">back</a>\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"#create\\\">delete</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
+	module.exports = "module.exports = \"<script type=text/template id=delete> <section class=\\\"delete-container\\\">\\r\\n\\t\\t<h1>Post Delete</h1>\\r\\n\\t\\t<table class=\\\"highlight\\\">\\r\\n\\t\\t\\t<thead>\\r\\n\\t\\t\\t  <tr>\\r\\n\\t\\t\\t      <th>id</th>\\r\\n\\t\\t\\t      <th>title</th>\\r\\n\\t\\t\\t      <th>body</th>\\r\\n\\t\\t\\t  </tr>\\r\\n\\t\\t\\t</thead>\\r\\n\\t\\t\\t<tbody id=\\\"userList\\\"></tbody>\\r\\n\\t\\t</table>\\r\\n\\t\\t<div class=\\\"delete-btn\\\">\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn grey\\\" href=\\\"../app/#\\\">back</a>\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"javascript:void(0)\\\">delete</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 6 */
@@ -236,6 +238,59 @@
 	    body: ''
 	  }
 	});
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var PostDetailView, postModel;
+
+	postModel = __webpack_require__(9);
+
+	PostDetailView = Backbone.View.extend({
+	  init: function init(id) {
+	    this.id = id || null;
+	    this.url = 'http://localhost:3010/users/' + this.id;
+	    this.$el = $('#detail');
+	    this.elm = {
+	      del: this.$el.find('#delete').children(),
+	      update: this.$el.find('#update').children(),
+	      inputTitle: this.$el.find('#title'),
+	      inputBody: this.$el.find('#body')
+	    };
+	    this.initModel();
+	    this.delegateEvents({
+	      'click #delete': 'del',
+	      'click #update': 'update'
+	    });
+	    return this.post.on('destroy', this.locationChange, this);
+	  },
+	  // リクエストのIDに応じたモデルを取得する。
+	  initModel: function initModel() {
+	    this.post = new postModel();
+	    this.post = _.extend(this.post, {
+	      url: this.url
+	    });
+	    return this.post.fetch();
+	  },
+	  del: function del() {
+	    var res;
+	    res = window.confirm('削除してよろしいですか？');
+	    if (res) {
+	      return this.post.destroy();
+	    }
+	  },
+	  update: function update() {
+	    return console.log(4343);
+	  },
+	  locationChange: function locationChange() {
+	    return location.replace('#');
+	  }
+	});
+
+	module.exports = new PostDetailView();
 
 /***/ })
 /******/ ]);

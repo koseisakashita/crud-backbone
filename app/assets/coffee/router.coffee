@@ -1,5 +1,6 @@
 config = require './config'
-postListsView = require './index/views/postLists'
+postListsView = require './views/postLists'
+postDetail = require './views/postDetail'
 
 Router = Backbone.Router.extend({
     initialize: ->
@@ -24,7 +25,7 @@ Router = Backbone.Router.extend({
 
     detail : (id) ->
         @_tmplRender 'detail'
-        console.log 'detail'
+        postDetail.init(id)
 
     delete : (id) ->
         @_tmplRender 'del'

@@ -1,4 +1,4 @@
-listView = require './list'
+listView = require './postList'
 postCollection = require '../collections/postCollection'
 
 UserListsView = Backbone.View.extend({
