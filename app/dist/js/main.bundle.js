@@ -70,6 +70,7 @@
 	  },
 	  index: function index() {
 	    this._tmplRender('index');
+	    console.log(Backbone);
 	    return postListsView.init();
 	  },
 	  create: function create() {
@@ -265,7 +266,7 @@
 	      'click #delete': 'del',
 	      'click #update': 'update'
 	    });
-	    return this.post.on('destroy', this.locationChange, this);
+	    return this.post.on('locationChange', this.locationChange, this);
 	  },
 	  // リクエストのIDに応じたモデルを取得する。
 	  initModel: function initModel() {
@@ -275,16 +276,24 @@
 	    });
 	    return this.post.fetch();
 	  },
+	  // 表示されている投稿を削除する。
 	  del: function del() {
+	    var _this = this;
+
 	    var res;
 	    res = window.confirm('削除してよろしいですか？');
 	    if (res) {
-	      return this.post.destroy();
+	      return this.post.destroy({
+	        success: function success() {
+	          return _this.post.trigger('locationChange');
+	        },
+	        error: function error() {
+	          return location.reload();
+	        }
+	      });
 	    }
 	  },
-	  update: function update() {
-	    return console.log(4343);
-	  },
+	  update: function update() {},
 	  locationChange: function locationChange() {
 	    return location.replace('#');
 	  }

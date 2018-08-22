@@ -19,7 +19,7 @@ PostDetailView = Backbone.View.extend({
 			'click #update':'update' 
 		)
 
-		@post.on 'destroy', @locationChange, @
+		@post.on 'locationChange', @locationChange, @
 
 	# リクエストのIDに応じたモデルを取得する。
 	initModel: ->
@@ -28,13 +28,18 @@ PostDetailView = Backbone.View.extend({
 			url: @url
 		@post.fetch()
 
+	# 表示されている投稿を削除する。
 	del: ->
 		res = window.confirm('削除してよろしいですか？')
 		if res
-			@post.destroy()
+			@post.destroy(
+				success: =>
+					@post.trigger 'locationChange'
+				error: =>
+					location.reload()
+			)
 
 	update:->
-		console.log 4343
 
 	locationChange: ->
 		location.replace '#'
