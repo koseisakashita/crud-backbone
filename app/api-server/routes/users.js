@@ -46,11 +46,12 @@ router.put('/:id',(req, res, next) => {
     res.send('data no exist!');
     return
   }
-  console.log(req)
+  console.log(req.params)
   // データを更新する。
   test.datas[index] = {
     id: req.params.id,
-    title:req.body.title
+    title:req.body.title,
+    body:req.body.body
   }
   res.json(test.datas)
 })

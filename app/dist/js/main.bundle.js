@@ -70,7 +70,6 @@
 	  },
 	  index: function index() {
 	    this._tmplRender('index');
-	    console.log(Backbone);
 	    return postListsView.init();
 	  },
 	  create: function create() {
@@ -136,7 +135,7 @@
 /* 3 */
 /***/ (function(module, exports) {
 
-	module.exports = "module.exports = \"<script type=text/template> <section class=\\\"detail-container\\\" id=\\\"detail\\\">\\r\\n\\t\\t<div class=\\\"detail-header\\\">\\r\\n\\t\\t\\t<h1>Post Detail</h1>\\r\\n\\t\\t\\t<div id=\\\"delete\\\" class=\\\"center-align btn-floating waves-effect waves-light grey lighten-2\\\">\\r\\n\\t\\t\\t\\t<a><i class=\\\"material-icons\\\">close</i></a>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"row\\\">\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"title\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"title\\\">title</label>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"body\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"body\\\">body</label>\\t\\t\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"update-btn\\\" id=\\\"update\\\" >\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"javascript:void(0)\\\">update</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
+	module.exports = "module.exports = \"<script type=text/template> <section class=\\\"detail-container\\\" id=\\\"detail\\\">\\r\\n\\t\\t<div class=\\\"detail-header\\\">\\r\\n\\t\\t\\t<h1>Post Detail</h1>\\r\\n\\t\\t\\t<div id=\\\"delete\\\" class=\\\"center-align btn-floating waves-effect waves-light grey lighten-2\\\">\\r\\n\\t\\t\\t\\t<a href=\\\"javascript:void(0)\\\"><i class=\\\"material-icons\\\">close</i></a>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"row\\\">\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"title\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"title\\\">title</label>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"body\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"body\\\">body</label>\\t\\t\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"update-btn\\\" id=\\\"update\\\" >\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"javascript:void(0)\\\">update</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 4 */
@@ -255,37 +254,44 @@
 	    this.id = id || null;
 	    this.url = 'http://localhost:3010/users/' + this.id;
 	    this.$el = $('#detail');
-	    this.elm = {
-	      del: this.$el.find('#delete').children(),
+	    this.$elm = {
 	      update: this.$el.find('#update').children(),
 	      inputTitle: this.$el.find('#title'),
 	      inputBody: this.$el.find('#body')
 	    };
-	    this.initModel();
+	    this.setModel();
+	    // イベントを設定する。
 	    this.delegateEvents({
 	      'click #delete': 'del',
 	      'click #update': 'update'
 	    });
 	    return this.post.on('locationChange', this.locationChange, this);
 	  },
-	  // リクエストのIDに応じたモデルを取得する。
-	  initModel: function initModel() {
+	  // リクエストのIDに応じたモデルを取得して初期値を設定する。
+	  setModel: function setModel() {
+	    var _this = this;
+
 	    this.post = new postModel();
 	    this.post = _.extend(this.post, {
 	      url: this.url
 	    });
-	    return this.post.fetch();
+	    return this.post.fetch({
+	      success: function success() {
+	        _this.$elm.inputTitle.val(_this.post.attributes.title);
+	        return _this.$elm.inputBody.val(_this.post.attributes.body);
+	      }
+	    });
 	  },
 	  // 表示されている投稿を削除する。
 	  del: function del() {
-	    var _this = this;
+	    var _this2 = this;
 
 	    var res;
 	    res = window.confirm('削除してよろしいですか？');
 	    if (res) {
 	      return this.post.destroy({
 	        success: function success() {
-	          return _this.post.trigger('locationChange');
+	          return _this2.post.trigger('locationChange');
 	        },
 	        error: function error() {
 	          return location.reload();
@@ -293,7 +299,22 @@
 	      });
 	    }
 	  },
-	  update: function update() {},
+	  // 表示されている投稿を更新する
+	  update: function update() {
+	    var _this3 = this;
+
+	    var data;
+	    data = {
+	      id: this.id,
+	      title: this.$elm.inputTitle.val(),
+	      body: this.$elm.inputBody.val()
+	    };
+	    return this.post.save(data, {
+	      success: function success() {
+	        return _this3.post.trigger('locationChange');
+	      }
+	    });
+	  },
 	  locationChange: function locationChange() {
 	    return location.replace('#');
 	  }

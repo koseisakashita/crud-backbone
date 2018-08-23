@@ -18,7 +18,6 @@ Router = Backbone.Router.extend({
 
     index : ->
         @_tmplRender 'index'
-        console.log Backbone
         postListsView.init()
 
     create : ->
