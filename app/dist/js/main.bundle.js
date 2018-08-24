@@ -135,7 +135,7 @@
 /* 3 */
 /***/ (function(module, exports) {
 
-	module.exports = "module.exports = \"<script type=text/template> <section class=\\\"detail-container\\\" id=\\\"detail\\\">\\r\\n\\t\\t<div class=\\\"detail-header\\\">\\r\\n\\t\\t\\t<h1>Post Detail</h1>\\r\\n\\t\\t\\t<div id=\\\"delete\\\" class=\\\"center-align btn-floating waves-effect waves-light grey lighten-2\\\">\\r\\n\\t\\t\\t\\t<a href=\\\"javascript:void(0)\\\"><i class=\\\"material-icons\\\">close</i></a>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"row\\\">\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"title\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"title\\\">title</label>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"body\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"body\\\">body</label>\\t\\t\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"update-btn\\\" id=\\\"update\\\" >\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"javascript:void(0)\\\">update</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
+	module.exports = "module.exports = \"<script type=text/template> <section class=\\\"detail-container\\\" id=\\\"detail\\\">\\r\\n\\t\\t<div class=\\\"detail-header\\\">\\r\\n\\t\\t\\t<h1>Post Detail</h1>\\r\\n\\t\\t\\t<div id=\\\"delete\\\" class=\\\"center-align btn-floating waves-effect waves-light grey lighten-2\\\">\\r\\n\\t\\t\\t\\t<a href=\\\"javascript:void(0)\\\"><i class=\\\"material-icons\\\">close</i></a>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"row\\\">\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"title\\\" type=\\\"text\\\"\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"title\\\">title</label>\\r\\n\\t\\t\\t\\t<span class=\\\"errortitle vali-error-txt\\\"></span>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"body\\\" type=\\\"text\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"body\\\">body</label>\\r\\n\\t\\t\\t\\t<span class=\\\"errorbody vali-error-txt\\\"></span>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"update-btn\\\" id=\\\"update\\\" >\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"javascript:void(0)\\\">update</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 4 */
@@ -236,6 +236,25 @@
 	    id: null,
 	    title: '',
 	    body: ''
+	  },
+	  validate: function validate(attr) {
+	    var errors;
+	    errors = [];
+	    if (_.isEmpty(attr.title)) {
+	      errors.push({
+	        name: 'title',
+	        message: 'empty title!'
+	      });
+	    }
+	    if (_.isEmpty(attr.body)) {
+	      errors.push({
+	        name: 'body',
+	        message: 'empty body!'
+	      });
+	    }
+	    if (errors.length > 0) {
+	      return errors;
+	    }
 	  }
 	});
 
@@ -265,7 +284,8 @@
 	      'click #delete': 'del',
 	      'click #update': 'update'
 	    });
-	    return this.post.on('locationChange', this.locationChange, this);
+	    this.post.on('locationChange', this.locationChange, this);
+	    return this.post.on('invalid', this.ValiMessage, this);
 	  },
 	  // リクエストのIDに応じたモデルを取得して初期値を設定する。
 	  setModel: function setModel() {
@@ -313,6 +333,15 @@
 	      success: function success() {
 	        return _this3.post.trigger('locationChange');
 	      }
+	    });
+	  },
+	  // バリデートエラーメッセージを表示する。
+	  ValiMessage: function ValiMessage(errors) {
+	    $('.vali-error-txt').empty();
+	    $('#title, #body').removeClass('vali-error');
+	    return _.each(errors.validationError, function (error) {
+	      $('.error' + error.name).html(error.message);
+	      return $('#' + error.name).addClass('vali-error');
 	    });
 	  },
 	  locationChange: function locationChange() {

@@ -1,5 +1,10 @@
 .detail-container{
 	margin-bottom: 60px;
+
+	p{
+		margin: 0;
+	}
+
 	>.detail-header {
 		display: flex;
 	    align-items: center;
@@ -14,7 +19,27 @@
 			}
 		}
 	}
+	>.row{
+		>.input-field{
+			input{
+				margin: 5px 0 10px;
+				box-sizing: border-box;
+				padding: 5px 10px;
+				border: 1px solid transparent;
+				color: #333;
+				transition: none;
+				&.vali-error{
+					position: relative;
+					background: #fc020212;
+					border: 1px solid #d10000;
+				}
+			}
+			>.vali-error-txt{
+			    color: #f50000;
+			}
+		}
+	}
 	>.update-btn{
-		margin-top: 20px;
+		margin-top: 30px;
 	}
 }

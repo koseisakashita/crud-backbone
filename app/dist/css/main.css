@@ -10,6 +10,8 @@
 
 .detail-container {
   margin-bottom: 60px; }
+  .detail-container p {
+    margin: 0; }
   .detail-container > .detail-header {
     display: flex;
     align-items: center; }
@@ -20,8 +22,21 @@
       margin-left: auto; }
       .detail-container > .detail-header > div > a > i {
         color: #777; }
+  .detail-container > .row > .input-field input {
+    margin: 5px 0 10px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    color: #333;
+    transition: none; }
+    .detail-container > .row > .input-field input.vali-error {
+      position: relative;
+      background: #fc020212;
+      border: 1px solid #d10000; }
+  .detail-container > .row > .input-field > .vali-error-txt {
+    color: #f50000; }
   .detail-container > .update-btn {
-    margin-top: 20px; }
+    margin-top: 30px; }
 
 .create-container {
   margin-bottom: 60px; }

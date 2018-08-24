@@ -19,6 +19,7 @@ PostDetailView = Backbone.View.extend({
 			'click #update':'update' 
 		)
 		@post.on 'locationChange', @locationChange, @
+		@post.on 'invalid', @ValiMessage, @
 
 	# リクエストのIDに応じたモデルを取得して初期値を設定する。
 	setModel: ->
@@ -53,6 +54,14 @@ PostDetailView = Backbone.View.extend({
 			success: =>
 				@post.trigger 'locationChange'
 		)
+
+	# バリデートエラーメッセージを表示する。
+	ValiMessage: (errors) ->
+		$('.vali-error-txt').empty()
+		$('#title, #body').removeClass 'vali-error'
+		_.each errors.validationError, (error) =>
+			$('.error' + error.name).html error.message
+			$('#' + error.name).addClass 'vali-error'
 
 	locationChange: ->
 		location.replace '#'
