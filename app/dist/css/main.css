@@ -34,6 +34,7 @@
       background: #fc020212;
       border: 1px solid #d10000; }
   .detail-container > .row > .input-field > .vali-error-txt {
+    height: 20px;
     color: #f50000; }
   .detail-container > .update-btn {
     margin-top: 30px; }
