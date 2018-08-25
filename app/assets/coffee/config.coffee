@@ -2,7 +2,6 @@ tmplLists = {}
 tmplLists.index = require 'html!template/index.html'
 tmplLists.detail = require 'html!template/detail.html'
 tmplLists.create = require 'html!template/create.html'
-tmplLists.delete = require 'html!template/delete.html'
 
 # テンプレートの不要な文字を削除する。
 _.each tmplLists, (tmpl, key) ->

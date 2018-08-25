@@ -46,13 +46,15 @@
 
 	'use strict';
 
-	var Router, config, postDetail, postListsView, router;
+	var Router, config, postCreateView, postDetailView, postListsView, router;
 
 	config = __webpack_require__(1);
 
-	postListsView = __webpack_require__(6);
+	postListsView = __webpack_require__(5);
 
-	postDetail = __webpack_require__(10);
+	postDetailView = __webpack_require__(9);
+
+	postCreateView = __webpack_require__(10);
 
 	Router = Backbone.Router.extend({
 	  initialize: function initialize() {
@@ -61,7 +63,6 @@
 	  routes: {
 	    'create': 'create',
 	    'detail(/:id)': 'detail',
-	    'delete(/:id)': 'delete',
 	    '': 'index'
 	  },
 	  _tmplRender: function _tmplRender(view) {
@@ -73,14 +74,12 @@
 	    return postListsView.init();
 	  },
 	  create: function create() {
-	    return this._tmplRender('create');
+	    this._tmplRender('create');
+	    return postCreateView.init();
 	  },
 	  detail: function detail(id) {
 	    this._tmplRender('detail');
-	    return postDetail.init(id);
-	  },
-	  delete: function _delete(id) {
-	    return this._tmplRender('del');
+	    return postDetailView.init(id);
 	  }
 	});
 
@@ -107,8 +106,6 @@
 
 	tmplLists.create = __webpack_require__(4);
 
-	tmplLists.delete = __webpack_require__(5);
-
 	// テンプレートの不要な文字を削除する。
 	_.each(tmplLists, function (tmpl, key) {
 	  tmpl = tmpl.slice(18, tmpl.length - 2);
@@ -129,7 +126,7 @@
 /* 2 */
 /***/ (function(module, exports) {
 
-	module.exports = "module.exports = \"<script type=text/template id=index> <section class=\\\"index-container\\\">\\r\\n\\t\\t<h1>Post Lists</h1>\\r\\n\\t\\t<table class=\\\"highlight\\\">\\r\\n\\t\\t\\t<thead>\\r\\n\\t\\t\\t  <tr>\\r\\n\\t\\t\\t      <th>title</th>\\r\\n\\t\\t\\t      <th>body</th>\\r\\n\\t\\t\\t  </tr>\\r\\n\\t\\t\\t</thead>\\r\\n\\t\\t\\t<tbody id=\\\"userList\\\"></tbody>\\r\\n\\t\\t</table>\\r\\n\\t\\t<div class=\\\"create-btn\\\">\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"#create\\\">create</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
+	module.exports = "module.exports = \"<script type=text/template id=index> <section class=\\\"index-container\\\">\\r\\n\\t\\t<div class=\\\"post-header\\\">\\r\\n\\t\\t\\t<h1>Post Lists</h1>\\r\\n\\t\\t\\t<div class=\\\"create-btn\\\">\\r\\n\\t\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"#create\\\">create</a>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<table class=\\\"highlight\\\">\\r\\n\\t\\t\\t<thead>\\r\\n\\t\\t\\t  <tr>\\r\\n\\t\\t\\t      <th>title</th>\\r\\n\\t\\t\\t      <th>body</th>\\r\\n\\t\\t\\t  </tr>\\r\\n\\t\\t\\t</thead>\\r\\n\\t\\t\\t<tbody id=\\\"userList\\\"></tbody>\\r\\n\\t\\t</table>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 3 */
@@ -141,25 +138,19 @@
 /* 4 */
 /***/ (function(module, exports) {
 
-	module.exports = "module.exports = \"<script type=text/template id=create> <section class=\\\"create-container\\\">\\r\\n\\t\\t<h1>Post Create</h1>\\r\\n\\t\\t<div class=\\\"row\\\">\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"title\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"title\\\">title</label>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"body\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"body\\\">body</label>\\t\\t\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"create-btn\\\">\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"../app/#\\\">create</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
+	module.exports = "module.exports = \"<script type=text/template> <section class=\\\"create-container\\\" id=\\\"create\\\">\\r\\n\\t\\t<h1>Post Create</h1>\\r\\n\\t\\t<div class=\\\"row\\\">\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"title\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"title\\\">title</label>\\r\\n\\t\\t\\t\\t<p class=\\\"errortitle vali-error-txt\\\"></p>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t\\t<div class=\\\"input-field col s6\\\">\\r\\n\\t\\t\\t\\t<input id=\\\"body\\\" type=\\\"text\\\" class=\\\"validate\\\">\\r\\n\\t\\t\\t\\t<label class=\\\"active\\\" for=\\\"body\\\">body</label>\\t\\r\\n\\t\\t\\t\\t<p class=\\\"errorbody vali-error-txt\\\"></p>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\\r\\n\\t\\t<div class=\\\"create-btn\\\">\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"javascript:void(0)\\\" id=\\\"create-btn\\\">create</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports) {
-
-	module.exports = "module.exports = \"<script type=text/template id=delete> <section class=\\\"delete-container\\\">\\r\\n\\t\\t<h1>Post Delete</h1>\\r\\n\\t\\t<table class=\\\"highlight\\\">\\r\\n\\t\\t\\t<thead>\\r\\n\\t\\t\\t  <tr>\\r\\n\\t\\t\\t      <th>id</th>\\r\\n\\t\\t\\t      <th>title</th>\\r\\n\\t\\t\\t      <th>body</th>\\r\\n\\t\\t\\t  </tr>\\r\\n\\t\\t\\t</thead>\\r\\n\\t\\t\\t<tbody id=\\\"userList\\\"></tbody>\\r\\n\\t\\t</table>\\r\\n\\t\\t<div class=\\\"delete-btn\\\">\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn grey\\\" href=\\\"../app/#\\\">back</a>\\r\\n\\t\\t\\t<a class=\\\"waves-effect waves-light btn red lighten-2\\\" href=\\\"javascript:void(0)\\\">delete</a>\\r\\n\\t\\t</div>\\r\\n\\t</section> </script>\";";
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var UserListsView, listView, postCollection;
 
-	listView = __webpack_require__(7);
+	listView = __webpack_require__(6);
 
-	postCollection = __webpack_require__(8);
+	postCollection = __webpack_require__(7);
 
 	UserListsView = Backbone.View.extend({
 	  collection: postCollection,
@@ -194,7 +185,7 @@
 	module.exports = new UserListsView();
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -209,14 +200,14 @@
 	});
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var UserCollection, postModel;
 
-	postModel = __webpack_require__(9);
+	postModel = __webpack_require__(8);
 
 	UserCollection = Backbone.Collection.extend({
 	  model: postModel,
@@ -226,7 +217,7 @@
 	module.exports = new UserCollection();
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -259,14 +250,14 @@
 	});
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var PostDetailView, postModel;
 
-	postModel = __webpack_require__(9);
+	postModel = __webpack_require__(8);
 
 	PostDetailView = Backbone.View.extend({
 	  init: function init(id) {
@@ -338,7 +329,7 @@
 	  // バリデートエラーメッセージを表示する。
 	  valiMessage: function valiMessage(errors) {
 	    $('.vali-error-txt').empty();
-	    $(this.$elm.inputTitle, this.$elm.inputBody).removeClass('vali-error');
+	    $([this.$elm.inputTitle[0], this.$elm.inputBody[0]]).removeClass('vali-error');
 	    return _.each(errors.validationError, function (error) {
 	      $('.error' + error.name).html(error.message);
 	      return $('#' + error.name).addClass('vali-error');
@@ -350,6 +341,65 @@
 	});
 
 	module.exports = new PostDetailView();
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var PostCreateView, postModel;
+
+	postModel = __webpack_require__(8);
+
+	PostCreateView = Backbone.View.extend({
+	  init: function init() {
+	    this.$el = $('#create');
+	    this.$elm = {
+	      inputTitle: this.$el.find('#title'),
+	      inputBody: this.$el.find('#body')
+	    };
+	    this.post = new postModel();
+	    this.post = _.extend(this.post, {
+	      url: 'http://localhost:3010/users/'
+	    });
+	    // イベントを設定する。
+	    this.delegateEvents({
+	      "click #create-btn": 'saveModel'
+	    });
+	    this.post.on('locationChange', this.locationChange, this);
+	    return this.post.on('invalid', this.valiMessage, this);
+	  },
+	  // 投稿を作成する
+	  saveModel: function saveModel() {
+	    var _this = this;
+
+	    var data;
+	    data = {
+	      title: this.$elm.inputTitle.val(),
+	      body: this.$elm.inputBody.val()
+	    };
+	    return this.post.save(data, {
+	      success: function success() {
+	        return _this.post.trigger('locationChange');
+	      }
+	    });
+	  },
+	  // バリデートエラーメッセージを表示する。
+	  valiMessage: function valiMessage(errors) {
+	    $('.vali-error-txt').empty();
+	    $([this.$elm.inputTitle[0], this.$elm.inputBody[0]]).removeClass('vali-error');
+	    return _.each(errors.validationError, function (error) {
+	      $('.error' + error.name).html(error.message);
+	      return $('#' + error.name).addClass('vali-error');
+	    });
+	  },
+	  locationChange: function locationChange() {
+	    return location.replace('#');
+	  }
+	});
+
+	module.exports = new PostCreateView();
 
 /***/ })
 /******/ ]);

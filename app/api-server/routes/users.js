@@ -20,7 +20,7 @@ router.get('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
   // postされたデータをマージする。
   let data = Object.assign(
-    {id: null, title: null},req.body)
+    {id: null, title: null,body: null},req.body)
 
   if(data.id === null){
     // POSTされたデータの中にIDがない場合にデータのIDを準備しておく。

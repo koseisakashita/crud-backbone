@@ -1,18 +1,20 @@
-<script type="text/template" id="create">
-	<section class="create-container">
+<script type="text/template">
+	<section class="create-container" id="create">
 		<h1>Post Create</h1>
 		<div class="row">
 			<div class="input-field col s6">
 				<input id="title" type="text" class="validate">
 				<label class="active" for="title">title</label>
+				<p class="errortitle vali-error-txt"></p>
 			</div>
 			<div class="input-field col s6">
 				<input id="body" type="text" class="validate">
-				<label class="active" for="body">body</label>		
+				<label class="active" for="body">body</label>	
+				<p class="errorbody vali-error-txt"></p>
 			</div>
 		</div>
 		<div class="create-btn">
-			<a class="waves-effect waves-light btn red lighten-2" href="../app/#">create</a>
+			<a class="waves-effect waves-light btn red lighten-2" href="javascript:void(0)" id="create-btn">create</a>
 		</div>
 	</section>
 </script>

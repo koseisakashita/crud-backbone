@@ -1,12 +1,15 @@
 .index-container {
   margin-bottom: 60px; }
+  .index-container > .post-header {
+    display: flex; }
+    .index-container > .post-header > .create-btn {
+      margin-top: 20px;
+      margin-left: auto; }
+    .index-container > .post-header > h1 {
+      font-size: 20px;
+      font-weight: bold; }
   .index-container .data-none {
     line-height: 3; }
-  .index-container > h1 {
-    font-size: 20px;
-    font-weight: bold; }
-  .index-container > .create-btn {
-    margin-top: 20px; }
 
 .detail-container {
   margin-bottom: 60px; }
@@ -41,21 +44,30 @@
 
 .create-container {
   margin-bottom: 60px; }
+  .create-container p {
+    margin: 0; }
   .create-container > h1 {
     font-size: 20px;
     font-weight: bold; }
+  .create-container > .row > .input-field input {
+    margin: 5px 0 10px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-top: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid #ccc;
+    color: #333;
+    transition: none; }
+    .create-container > .row > .input-field input.vali-error {
+      position: relative;
+      background: #fc020212;
+      border: 1px solid #d10000; }
+  .create-container > .row > .input-field > .vali-error-txt {
+    height: 20px;
+    color: #f50000; }
   .create-container > .create-btn {
-    margin-top: 20px; }
-
-.delete-container {
-  margin-bottom: 60px; }
-  .delete-container > h1 {
-    font-size: 20px;
-    font-weight: bold; }
-  .delete-container > .delete-btn {
     margin-top: 30px; }
-    .delete-container > .delete-btn > a:first-child {
-      margin-right: 20px; }
 
 header > nav > .nav-wrapper {
   max-width: 70%;

@@ -58,7 +58,7 @@ PostDetailView = Backbone.View.extend({
 	# バリデートエラーメッセージを表示する。
 	valiMessage: (errors) ->
 		$('.vali-error-txt').empty()
-		$(@$elm.inputTitle, @$elm.inputBody).removeClass 'vali-error'
+		$([@$elm.inputTitle[0], @$elm.inputBody[0]]).removeClass 'vali-error'
 
 		_.each errors.validationError, (error) =>
 			$('.error' + error.name).html error.message

@@ -1,13 +1,18 @@
 .index-container{
 	margin-bottom: 60px;
+	>.post-header{
+		display: flex;
+		>.create-btn{
+			margin-top: 20px;
+			margin-left: auto;
+		}
+		>h1{
+			font-size: 20px;
+			font-weight: bold;
+		}
+		
+	}
 	.data-none{
 		line-height: 3;
-	}
-	>h1{
-		font-size: 20px;
-		font-weight: bold;
-	}
-	>.create-btn{
-		margin-top: 20px;
 	}
 }
