@@ -18,5 +18,4 @@ module.exports =
     tmpl:
         index: tmplLists.index,
         detail: tmplLists.detail,
-        create: tmplLists.create,
-        del: tmplLists.delete
+        create: tmplLists.create
