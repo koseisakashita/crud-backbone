@@ -25,7 +25,12 @@
 				margin: 5px 0 10px;
 				box-sizing: border-box;
 				padding: 5px 10px;
-				border: 1px solid transparent;
+				border:{
+					top: 1px solid transparent;
+					left: 1px solid transparent;
+					right: 1px solid transparent;
+					bottom: 1px solid #ccc;
+				}
 				color: #333;
 				transition: none;
 				&.vali-error{
